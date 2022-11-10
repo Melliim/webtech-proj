@@ -3,6 +3,7 @@ package htw.berlin.webtech.service;
 import htw.berlin.webtech.persistence.HabitEntity;
 import htw.berlin.webtech.persistence.HabitRepository;
 import htw.berlin.webtech.web.api.Habit;
+import htw.berlin.webtech.web.api.HabitCreateRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,12 +20,22 @@ public class HabitService {
     public List<Habit> findAll(){
         List<HabitEntity> habits = habitRepository.findAll();
         return habits.stream()
-                .map(habitEntity -> new Habit(
-                        habitEntity.getId(),
-                        habitEntity.getTitle(),
-                        habitEntity.getDescription(),
-                        habitEntity.isFinished()
-                ))
+                .map(this::transformEntity)
                 .collect(Collectors.toList());
+    }
+
+    public Habit create(HabitCreateRequest request) {
+        var habitEntity = new HabitEntity(request.getTitle(), request.getDescription(), request.isFinished());
+        habitEntity = habitRepository.save(habitEntity);
+        return transformEntity(habitEntity);
+    }
+
+    private Habit transformEntity(HabitEntity habitEntity) {
+        return new Habit(
+                habitEntity.getId(),
+                habitEntity.getTitle(),
+                habitEntity.getDescription(),
+                habitEntity.isFinished()
+        );
     }
 }
