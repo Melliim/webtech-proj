@@ -2,36 +2,41 @@ package htw.berlin.webtech.persistence;
 
 import javax.persistence.*;
 
-@Entity(name = "habits_")
+@Entity(name = "habits")
 public class HabitEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_")
-    private long id;
+    @Column(name = "id")
+    private Long id;
 
-    @Column(name = "title_", nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "description_", nullable = false)
+    @Column(name = "description", nullable = false)
     private String description;
 
-    @Column(name = "is_finished_")
-    private boolean finished;
+    @Column(name = "isFinished")
+    private Boolean finished;
+
+    @Column(name = "category")
+    @Enumerated(value = EnumType.STRING)
+    private Category category;
 
     /*@Column(name = ".test")
     private String testColumn;*/
 
-    public HabitEntity(String title, String description, boolean finished) {
+    public HabitEntity(String title, String description, Boolean finished, Category category) {
         this.title = title;
         this.description = description;
         this.finished = finished;
+        this.category = category;
     }
 
     protected HabitEntity() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -51,15 +56,23 @@ public class HabitEntity {
         this.description = description;
     }
 
-    public boolean isFinished() {
+    public Boolean isFinished() {
         return finished;
     }
 
-    public void setFinished(boolean finished) {
+    public void setFinished(Boolean finished) {
         this.finished = finished;
     }
 
-   /*public String getTestColumn() {
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    /*public String getTestColumn() {
         return testColumn;
     }
 

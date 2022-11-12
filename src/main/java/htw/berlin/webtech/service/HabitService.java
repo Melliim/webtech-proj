@@ -1,5 +1,6 @@
 package htw.berlin.webtech.service;
 
+import htw.berlin.webtech.persistence.Category;
 import htw.berlin.webtech.persistence.HabitEntity;
 import htw.berlin.webtech.persistence.HabitRepository;
 import htw.berlin.webtech.web.api.Habit;
@@ -30,7 +31,8 @@ public class HabitService {
     }
 
     public Habit create(HabitManipulationRequest request) {
-        var habitEntity = new HabitEntity(request.getTitle(), request.getDescription(), request.isFinished());
+        var category = Category.valueOf(request.getCategory());
+        var habitEntity = new HabitEntity(request.getTitle(), request.getDescription(), request.isFinished(), category);
         habitEntity = habitRepository.save(habitEntity);
         return transformEntity(habitEntity);
     }
@@ -45,12 +47,13 @@ public class HabitService {
         habitEntity.setTitle(request.getTitle());
         habitEntity.setDescription(request.getDescription());
         habitEntity.setFinished(request.isFinished());
+        habitEntity.setCategory(Category.valueOf(request.getCategory()));
         habitEntity = habitRepository.save(habitEntity);
 
         return transformEntity(habitEntity);
     }
 
-    public boolean deleteById(Long id) {
+    public Boolean deleteById(Long id) {
         if (!habitRepository.existsById(id)) {
             return false;
         }
@@ -60,10 +63,12 @@ public class HabitService {
     }
 
     private Habit transformEntity(HabitEntity habitEntity) {
+        var category = habitEntity.getCategory() != null ? habitEntity.getCategory().name() : Category.UNKNOWN.name();
         return new Habit(
                 habitEntity.getId(),
                 habitEntity.getTitle(),
                 habitEntity.getDescription(),
+                category,
                 habitEntity.isFinished()
         );
     }

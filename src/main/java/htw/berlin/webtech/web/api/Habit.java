@@ -2,23 +2,25 @@ package htw.berlin.webtech.web.api;
 
 public class Habit {
 
-    private long id;
+    private Long id;
     private String title;
     private String description;
-    private boolean finished;
+    private String category;
+    private Boolean finished;
 
-    public Habit(long id, String title, String description, boolean finished) {
+    public Habit(Long id, String title, String description,String category, Boolean finished) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.category = category;
         this.finished = finished;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -38,11 +40,19 @@ public class Habit {
         this.description = description;
     }
 
-    public boolean isFinished() {
+    public Boolean isFinished() {
         return finished;
     }
 
-    public void setFinished(boolean finished) {
+    public void setFinished(Boolean finished) {
         this.finished = finished;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
