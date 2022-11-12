@@ -8,6 +8,6 @@ import java.util.List;
 @Repository
 public interface HabitRepository extends JpaRepository<HabitEntity, Long> {
 
-    List<HabitEntity> findAllByFinished(boolean finished);
+    List<HabitEntity> findAllByFinished(Boolean finished);
 
 }
