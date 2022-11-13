@@ -7,13 +7,15 @@ public class Habit {
     private String description;
     private String category;
     private Boolean finished;
+    private Long followHabitId;
 
-    public Habit(Long id, String title, String description,String category, Boolean finished) {
+    public Habit(Long id, String title, String description, String category, Boolean finished, Long followHabitId) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.category = category;
         this.finished = finished;
+        this.followHabitId = followHabitId;
     }
 
     public Long getId() {
@@ -54,5 +56,13 @@ public class Habit {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public Long getFollowHabitId() {
+        return followHabitId;
+    }
+
+    public void setFollowHabitId(Long followHabitId) {
+        this.followHabitId = followHabitId;
     }
 }

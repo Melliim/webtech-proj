@@ -10,12 +10,13 @@ public class HabitTransformer {
 
     public Habit transformEntity(HabitEntity habitEntity) {
         var category = habitEntity.getCategory() != null ? habitEntity.getCategory().name() : Category.UNKNOWN.name();
+        var followHabitId = habitEntity.getFollowHabit() != null ? habitEntity.getFollowHabit().getId() : null;
         return new Habit(
                 habitEntity.getId(),
                 habitEntity.getTitle(),
                 habitEntity.getDescription(),
                 category,
-                habitEntity.getFinished()
-        );
+                habitEntity.getFinished(),
+                followHabitId);
     }
 }

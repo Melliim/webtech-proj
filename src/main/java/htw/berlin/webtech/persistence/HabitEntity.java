@@ -23,8 +23,11 @@ public class HabitEntity {
     @Enumerated(value = EnumType.STRING)
     private Category category;
 
-    /*@Column(name = ".test")
-    private String testColumn;*/
+    @OneToOne(mappedBy = "superhabit")
+    private FollowHabitEntity followHabit;
+
+    /* @Column(name = ".test")
+    private String testColumn; */
 
     public HabitEntity(String title, String description, Boolean finished, Category category) {
         this.title = title;
@@ -70,6 +73,14 @@ public class HabitEntity {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public FollowHabitEntity getFollowHabit() {
+        return followHabit;
+    }
+
+    public void setFollowHabit(FollowHabitEntity followHabit) {
+        this.followHabit = followHabit;
     }
 
     /*public String getTestColumn() {

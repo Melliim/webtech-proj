@@ -25,7 +25,7 @@ public class FollowHabitEntity {
     @Enumerated(value = EnumType.STRING)
     private Category category;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "superhabit_id", referencedColumnName = "id")
     private HabitEntity superhabit;
 
