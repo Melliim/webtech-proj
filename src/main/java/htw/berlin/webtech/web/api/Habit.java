@@ -1,5 +1,7 @@
 package htw.berlin.webtech.web.api;
 
+import java.util.List;
+
 public class Habit {
 
     private Long id;
@@ -7,15 +9,15 @@ public class Habit {
     private String description;
     private String category;
     private Boolean finished;
-    private Long followHabitId;
+    private List<Long> followHabitIds;
 
-    public Habit(Long id, String title, String description, String category, Boolean finished, Long followHabitId) {
+    public Habit(Long id, String title, String description, String category, Boolean finished, List<Long> followHabitIds) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.category = category;
         this.finished = finished;
-        this.followHabitId = followHabitId;
+        this.followHabitIds = followHabitIds;
     }
 
     public Long getId() {
@@ -58,11 +60,11 @@ public class Habit {
         this.category = category;
     }
 
-    public Long getFollowHabitId() {
-        return followHabitId;
+    public List<Long> getFollowHabitIds() {
+        return followHabitIds;
     }
 
-    public void setFollowHabitId(Long followHabitId) {
-        this.followHabitId = followHabitId;
+    public void setFollowHabitIds(List<Long> followHabitIds) {
+        this.followHabitIds = followHabitIds;
     }
 }

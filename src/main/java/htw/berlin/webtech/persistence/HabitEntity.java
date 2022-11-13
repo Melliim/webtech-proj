@@ -1,6 +1,8 @@
 package htw.berlin.webtech.persistence;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "habits")
 public class HabitEntity {
@@ -23,8 +25,8 @@ public class HabitEntity {
     @Enumerated(value = EnumType.STRING)
     private Category category;
 
-    @OneToOne(mappedBy = "superhabit")
-    private FollowHabitEntity followHabit;
+    @OneToMany(mappedBy = "superhabit", fetch = FetchType.EAGER)
+    private List<FollowHabitEntity> followHabits = new ArrayList<>();
 
     /* @Column(name = ".test")
     private String testColumn; */
@@ -75,15 +77,15 @@ public class HabitEntity {
         this.category = category;
     }
 
-    public FollowHabitEntity getFollowHabit() {
-        return followHabit;
+    public List<FollowHabitEntity> getFollowHabits() {
+        return followHabits;
     }
 
-    public void setFollowHabit(FollowHabitEntity followHabit) {
-        this.followHabit = followHabit;
+    public void setFollowHabits(List<FollowHabitEntity> followHabits) {
+        this.followHabits = followHabits;
     }
 
-    /*public String getTestColumn() {
+/*public String getTestColumn() {
         return testColumn;
     }
 
