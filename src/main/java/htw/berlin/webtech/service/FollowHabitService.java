@@ -6,10 +6,11 @@ package htw.berlin.webtech.service;
         import htw.berlin.webtech.persistence.HabitRepository;
         import htw.berlin.webtech.web.api.FollowHabit;
         import htw.berlin.webtech.web.api.FollowHabitManipulationRequest;
-        import htw.berlin.webtech.web.api.Habit;
+
         import org.springframework.stereotype.Service;
 
         import java.util.List;
+        import java.util.Optional;
         import java.util.stream.Collectors;
 
 @Service
@@ -45,6 +46,22 @@ public class FollowHabitService {
         return transformEntity(followHabitEntity);
     }
 
+    public FollowHabit update(Long id, FollowHabitManipulationRequest request) {
+        var followHabitOptional = followHabitRepository.findById(id);
+        if (followHabitOptional.isEmpty()) {
+            return null;
+        }
+
+        var followHabitEntity = followHabitOptional.get();
+        followHabitEntity.setTitle(request.getTitle());
+        followHabitEntity.setDescription(request.getDescription());
+        followHabitEntity.setFinished(request.getFinished());
+        followHabitEntity.setCategory(Category.valueOf(request.getCategory()));
+        followHabitEntity = followHabitRepository.save(followHabitEntity);
+
+        return this.transformEntity(followHabitEntity);
+    }
+
     private FollowHabit transformEntity(FollowHabitEntity followHabitEntity) {
         var category = followHabitEntity.getCategory() != null ? followHabitEntity.getCategory().name() : Category.UNKNOWN.name();
         return new FollowHabit(
@@ -55,4 +72,6 @@ public class FollowHabitService {
                 followHabitEntity.getFinished(),
                 habitTransformer.transformEntity(followHabitEntity.getSuperhabit()));
     }
+
+
 }

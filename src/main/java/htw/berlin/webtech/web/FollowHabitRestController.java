@@ -3,7 +3,6 @@ package htw.berlin.webtech.web;
 import htw.berlin.webtech.service.FollowHabitService;
 import htw.berlin.webtech.web.api.FollowHabit;
 import htw.berlin.webtech.web.api.FollowHabitManipulationRequest;
-import htw.berlin.webtech.web.api.Habit;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,4 +38,10 @@ public class FollowHabitRestController {
 
     }
 
+    @PutMapping(path = "/api/v1/followHabits/{id}")
+    public ResponseEntity<FollowHabit> updateFollowHabit(@PathVariable Long id, @RequestBody FollowHabitManipulationRequest request){
+        var followHabit = followHabitService.update(id, request);
+        return followHabit != null? ResponseEntity.ok(followHabit) : ResponseEntity.notFound().build();
+
+    }
 }
