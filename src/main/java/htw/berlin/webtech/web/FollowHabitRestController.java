@@ -3,11 +3,9 @@ package htw.berlin.webtech.web;
 import htw.berlin.webtech.service.FollowHabitService;
 import htw.berlin.webtech.web.api.FollowHabit;
 import htw.berlin.webtech.web.api.FollowHabitManipulationRequest;
+import htw.berlin.webtech.web.api.Habit;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -25,6 +23,12 @@ public class FollowHabitRestController {
     @GetMapping(path = "/api/v1/followHabits")
     public ResponseEntity<List<FollowHabit>> fetchFollowHabits() {
         return ResponseEntity.ok(followHabitService.findAll());
+    }
+
+    @GetMapping(path = "/api/v1/followHabits/{id}")
+    public ResponseEntity<FollowHabit> fetchFollowHabitById(@PathVariable Long id){
+        var followHabit = followHabitService.findById(id);
+        return followHabit != null? ResponseEntity.ok(followHabit) : ResponseEntity.notFound().build();
     }
 
     @PostMapping(path = "/api/v1/followHabits")

@@ -6,6 +6,7 @@ package htw.berlin.webtech.service;
         import htw.berlin.webtech.persistence.HabitRepository;
         import htw.berlin.webtech.web.api.FollowHabit;
         import htw.berlin.webtech.web.api.FollowHabitManipulationRequest;
+        import htw.berlin.webtech.web.api.Habit;
         import org.springframework.stereotype.Service;
 
         import java.util.List;
@@ -29,6 +30,11 @@ public class FollowHabitService {
         return followHabits.stream()
                 .map(this::transformEntity)
                 .collect(Collectors.toList());
+    }
+
+    public FollowHabit findById(Long id){
+        var followHabitEntity = followHabitRepository.findById(id);
+        return followHabitEntity.map(this::transformEntity).orElse(null);
     }
 
     public FollowHabit create(FollowHabitManipulationRequest request) {
