@@ -44,4 +44,11 @@ public class FollowHabitRestController {
         return followHabit != null? ResponseEntity.ok(followHabit) : ResponseEntity.notFound().build();
 
     }
+
+    @DeleteMapping(path = "/api/v1/followHabits/{id}")
+    public ResponseEntity<Void> deleteFollowHabit(@PathVariable Long id) {
+        boolean successful = followHabitService.deleteById(id);
+        return successful? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    }
+
 }

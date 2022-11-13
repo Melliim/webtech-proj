@@ -28,9 +28,6 @@ public class HabitEntity {
     @OneToMany(mappedBy = "superhabit", fetch = FetchType.EAGER)
     private List<FollowHabitEntity> followHabits = new ArrayList<>();
 
-    /* @Column(name = ".test")
-    private String testColumn; */
-
     public HabitEntity(String title, String description, Boolean finished, Category category) {
         this.title = title;
         this.description = description;
@@ -85,11 +82,4 @@ public class HabitEntity {
         this.followHabits = followHabits;
     }
 
-/*public String getTestColumn() {
-        return testColumn;
-    }
-
-    public void setTestColumn(String testColumn) {
-        this.testColumn = testColumn;
-    }*/
 }

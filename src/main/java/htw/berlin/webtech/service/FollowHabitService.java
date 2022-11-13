@@ -10,7 +10,7 @@ package htw.berlin.webtech.service;
         import org.springframework.stereotype.Service;
 
         import java.util.List;
-        import java.util.Optional;
+
         import java.util.stream.Collectors;
 
 @Service
@@ -73,5 +73,12 @@ public class FollowHabitService {
                 habitTransformer.transformEntity(followHabitEntity.getSuperhabit()));
     }
 
+    public Boolean deleteById(Long id) {
+        if (!followHabitRepository.existsById(id)) {
+            return false;
+        }
 
+        followHabitRepository.deleteById(id);
+        return true;
+    }
 }
