@@ -13,28 +13,30 @@ import java.util.stream.Collectors;
 @Service
 public class HabitService {
     private final HabitRepository habitRepository;
+    private final HabitTransformer habitTransformer;
 
-    public HabitService(HabitRepository habitRepository) {
+    public HabitService(HabitRepository habitRepository, HabitTransformer habitTransformer) {
         this.habitRepository = habitRepository;
+        this.habitTransformer = habitTransformer;
     }
 
     public List<Habit> findAll(){
         List<HabitEntity> habits = habitRepository.findAll();
         return habits.stream()
-                .map(this::transformEntity)
+                .map(habitTransformer::transformEntity)
                 .collect(Collectors.toList());
     }
 
     public Habit findById(Long id){
         var habitEntity = habitRepository.findById(id);
-        return habitEntity.map(this::transformEntity).orElse(null);
+        return habitEntity.map(habitTransformer::transformEntity).orElse(null);
     }
 
     public Habit create(HabitManipulationRequest request) {
         var category = Category.valueOf(request.getCategory());
-        var habitEntity = new HabitEntity(request.getTitle(), request.getDescription(), request.isFinished(), category);
+        var habitEntity = new HabitEntity(request.getTitle(), request.getDescription(), request.getFinished(), category);
         habitEntity = habitRepository.save(habitEntity);
-        return transformEntity(habitEntity);
+        return habitTransformer.transformEntity(habitEntity);
     }
 
     public Habit update(Long id, HabitManipulationRequest request) {
@@ -46,11 +48,11 @@ public class HabitService {
         var habitEntity = habitEntityOptional.get();
         habitEntity.setTitle(request.getTitle());
         habitEntity.setDescription(request.getDescription());
-        habitEntity.setFinished(request.isFinished());
+        habitEntity.setFinished(request.getFinished());
         habitEntity.setCategory(Category.valueOf(request.getCategory()));
         habitEntity = habitRepository.save(habitEntity);
 
-        return transformEntity(habitEntity);
+        return habitTransformer.transformEntity(habitEntity);
     }
 
     public Boolean deleteById(Long id) {
@@ -62,14 +64,5 @@ public class HabitService {
         return true;
     }
 
-    private Habit transformEntity(HabitEntity habitEntity) {
-        var category = habitEntity.getCategory() != null ? habitEntity.getCategory().name() : Category.UNKNOWN.name();
-        return new Habit(
-                habitEntity.getId(),
-                habitEntity.getTitle(),
-                habitEntity.getDescription(),
-                category,
-                habitEntity.isFinished()
-        );
-    }
+
 }

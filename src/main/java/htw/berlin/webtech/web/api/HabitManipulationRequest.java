@@ -32,7 +32,7 @@ public class HabitManipulationRequest {
         this.description = description;
     }
 
-    public Boolean isFinished() {
+    public Boolean getFinished() {
         return finished;
     }
 
