@@ -9,15 +9,15 @@ public class Habit {
     private String description;
     private String category;
     private Boolean finished;
-    private List<Long> followHabitIds;
+    private List<Long> followHabits;
 
-    public Habit(Long id, String title, String description, String category, Boolean finished, List<Long> followHabitIds) {
+    public Habit(Long id, String title, String description, String category, Boolean finished, List<Long> followHabits) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.category = category;
         this.finished = finished;
-        this.followHabitIds = followHabitIds;
+        this.followHabits = followHabits;
     }
 
     public Long getId() {
@@ -60,11 +60,11 @@ public class Habit {
         this.category = category;
     }
 
-    public List<Long> getFollowHabitIds() {
-        return followHabitIds;
+    public List<Long> getFollowHabits() {
+        return followHabits;
     }
 
-    public void setFollowHabitIds(List<Long> followHabitIds) {
-        this.followHabitIds = followHabitIds;
+    public void setFollowHabits(List<Long> followHabits) {
+        this.followHabits = followHabits;
     }
 }

@@ -15,6 +15,7 @@ public class HabitManipulationRequest {
         this.finished = finished;
     }
 
+    public HabitManipulationRequest() {}
 
     public String getTitle() {
         return title;

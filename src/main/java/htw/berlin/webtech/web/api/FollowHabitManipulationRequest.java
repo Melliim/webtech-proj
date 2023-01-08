@@ -18,6 +18,7 @@ public class FollowHabitManipulationRequest {
         this.superhabitId = superhabitId;
     }
 
+    public FollowHabitManipulationRequest() {}
 
     public String getTitle() {
         return title;
