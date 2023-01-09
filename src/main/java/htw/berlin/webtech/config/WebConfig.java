@@ -14,7 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedMethods("*")
                 .allowedOrigins(
-                        "/http://localhost:5000/",
+                        "http://localhost:5000/*",
                         "https://melliim.github.io/webtech-proj-frontend-x/"
                 );
     }
